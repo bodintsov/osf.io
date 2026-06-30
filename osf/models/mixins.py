@@ -2391,7 +2391,7 @@ class SpamOverrideMixin(SpamMixin):
         self.flag_spam(skip_user_suspension=True)
 
         # Suspend the flagged user for spam.
-        if not user.is_disabled:
+        if not user.is_disabled and settings.SPAM_ACCOUNT_SUSPENSION_ENABLED:
             user.deactivate_account()
             NotificationTypeEnum.USER_SPAM_BANNED.instance.emit(
                 user,
